@@ -4,6 +4,24 @@
 
 import { useState } from "react"
 
+const TotalPedido = ({ totalPedido }) => {
+	if (totalPedido) {
+		return (
+			<>
+				<h3>Importe Total del Pedido</h3>
+				<p>
+					${totalPedido}
+				</p>
+			</>
+		)
+
+	} else if (totalPedido === undefined) {
+		return (<p>Aqui se vera el importe total del pedido</p>)
+	} else if (totalPedido === null) {
+		return (<p>Pedido inexistente</p>)
+	}
+}
+
 export const Ejercicio3 = ({ productos, pedidos }) => {
 
 	const importeTotalPedido = (idPedido) => {
@@ -29,10 +47,12 @@ export const Ejercicio3 = ({ productos, pedidos }) => {
 
 	const [campoBusqueda, setCampoBusqueda] = useState("")// almacena el valor del campo de busqueda
 
+	const [totalPedido, setTotalPedido] = useState(undefined)
+
 	const manejarSubmit = (evento, campoBusqueda) => {
 		evento.preventDefault();//previene el submit del formulario
 		evento.target.elements["campoBusqueda"].value = ""//limpia el campo de busqueda
-		console.log(importeTotalPedido(campoBusqueda))//ejecuta la funcion importeTotalPedido e imprime el resultado en consola
+		setTotalPedido(importeTotalPedido(campoBusqueda))//ejecuta la funcion importeTotalPedido
 	}
 
 	return (
@@ -41,7 +61,7 @@ export const Ejercicio3 = ({ productos, pedidos }) => {
 				onSubmit={(evento) => manejarSubmit(evento, campoBusqueda)}>
 				<input type="text" name="campoBusqueda" autoComplete="off" placeholder="ingresa el id del pedido" onChange={(event) => { setCampoBusqueda(event.target.value) }} />
 				<input type="submit" name="submit" id="" value="buscar" />
-				<div></div>
+				<TotalPedido totalPedido={totalPedido} />
 			</form>
 		</section>
 	)
