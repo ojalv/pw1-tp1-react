@@ -1,6 +1,26 @@
 //Ejercicio 4: Escribe una función clienteConMayorGasto que 
 //determine cuál cliente ha gastado más dinero en la tienda. 
 //La función debe retornar un objeto con el nombreCliente y el total gastado.
+import { useState } from "react"
+
+const ClienteMayorGasto = ({ clienteGastador }) => {
+	if (clienteGastador) {
+
+		return (
+			<>
+				<h3>Cliente mas gastador</h3>
+				<p>Nombre: {clienteGastador.nombreCliente}</p>
+				<p>Monto Total Gastado: {clienteGastador.totalGastado}</p>
+			</>
+		)
+
+	} else if (clienteGastador === null) {
+		return (<p>Aqui se veran los datos del cliente mas gastador</p>)
+	} else if (clienteGastador === undefined) {
+		return (<p>Cliente inexistente</p>)
+	}
+}
+
 
 export const Ejercicio5 = ({ productos, pedidos, clientes }) => {
 
@@ -51,15 +71,17 @@ export const Ejercicio5 = ({ productos, pedidos, clientes }) => {
 
 	const manejarSubmit = (evento) => {
 		evento.preventDefault();//previene el submit del formulario
-		console.log(clienteConMayorGasto())//ejecuta la funcion clienteConMayorGasto e imprime el resultado en consola
+		setClienteGastador(clienteConMayorGasto())//ejecuta la funcion clienteConMayorGasto
 	}
+
+	const [clienteGastador, setClienteGastador] = useState(null)
 
 	return (
 		<section id="Ejercicio-5">
 			<form
 				onSubmit={(evento) => manejarSubmit(evento)}>
 				<span>Cliente que ha gastado más dinero en la tienda</span><input type="submit" name="submit" id="" value="buscar" />
-				<div></div>
+				<ClienteMayorGasto clienteGastador={clienteGastador} />
 			</form>
 		</section>
 	)
