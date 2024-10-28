@@ -30,6 +30,13 @@ body {
   min-height: 100vh;
 }
 
+section{
+  background-color:#213547;
+  margin: 20px;
+  padding: 10px;
+  height: 400px;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
