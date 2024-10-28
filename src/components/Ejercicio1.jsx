@@ -36,7 +36,6 @@ export const Ejercicio1 = ({ productos }) => {
 		evento.preventDefault();//previene el submit del formulario
 		evento.target.elements["campoBusqueda"].value = "" //limpia el campo de busqueda
 		setProducto(encontrarProducto(campoBusqueda)) //ejecuta la funcion encontrar producto e imprime el resultado en consola
-
 	}
 
 	return (

@@ -4,6 +4,32 @@
 
 import { useState } from "react"
 
+const ListaProductos = ({ nombresProductos }) => {
+	if (nombresProductos) {
+		if (nombresProductos.length > 0) {
+			return (
+				<>
+					<h3>Productos del Pedido</h3>
+					<ul>
+						{nombresProductos.map((nombre, index) => { return <li key={index}>{nombre}</li> })}
+					</ul>
+				</>
+			)
+		} else {
+			return (
+				<>
+					<p>El pedido no existe</p>
+				</>
+			)
+		}
+
+	} else if (nombresProductos === null) {
+		return (<p>Aqui se veran los productos del pedido</p>)
+	} else if (nombresProductos === undefined) {
+		return (<p>Producto inexistente</p>)
+	}
+}
+
 export const Ejercicio2 = ({ productos, pedidos }) => {
 
 	const productosPorPedido = (idPedido) => {
@@ -23,20 +49,22 @@ export const Ejercicio2 = ({ productos, pedidos }) => {
 	}
 
 	const [campoBusqueda, setCampoBusqueda] = useState("")// almacena el valor del campo de busqueda
-
+	const [nombresProductos, setNombresProductos] = useState(null)
 	const manejarSubmit = (evento, campoBusqueda) => {
 		evento.preventDefault();//previene el submit del formulario
 		evento.target.elements["campoBusqueda"].value = "" //limpia el campo de busqueda
-		console.log(productosPorPedido(campoBusqueda)) //ejecuta la funcion productosPorPedido e imprime el resultado en consola
+		setNombresProductos(productosPorPedido(campoBusqueda))
 	}
 
 	return (
 		<section id="Ejercicio-2">
+			<h2>Ejercicio 2</h2>
+			<p>Escribe el ID del pedido para ver la lista de productos</p>
 			<form
 				onSubmit={(evento) => manejarSubmit(evento, campoBusqueda)}>
 				<input type="text" name="campoBusqueda" autoComplete="off" placeholder="ingresa el id del pedido" onChange={(event) => { setCampoBusqueda(event.target.value) }} />
 				<input type="submit" name="submit" id="" value="buscar" />
-				<div></div>
+				<ListaProductos nombresProductos={nombresProductos} />
 			</form>
 		</section>
 	)
