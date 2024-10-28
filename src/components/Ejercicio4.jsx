@@ -4,6 +4,34 @@
 
 import { useState } from "react"
 
+const TotalCliente = ({ totalCliente }) => {
+	if (totalCliente) {
+
+		if (totalCliente == 0) {
+			return (
+				<>
+					<h3>El cliente no realizo pedidos</h3>
+				</>
+			)
+		} else {
+			return (
+				<>
+					<h3>Importe Total Gastado por el Cliente</h3>
+					<p>
+						${totalCliente}
+					</p>
+				</>
+			)
+		}
+
+
+	} else if (totalCliente === null) {
+		return (<p>Aqui se vera el importe total gastado por el cliente</p>)
+	} else if (totalCliente === undefined) {
+		return (<p>Cliente inexistente</p>)
+	}
+}
+
 export const Ejercicio4 = ({ productos, pedidos, clientes }) => {
 
 	const gastoTotalCliente = (idCliente) => {
@@ -36,19 +64,23 @@ export const Ejercicio4 = ({ productos, pedidos, clientes }) => {
 
 	const [campoBusqueda, setCampoBusqueda] = useState("")// almacena el valor del campo de busqueda
 
+	const [totalCliente, setTotalCliente] = useState(null)
+
 	const manejarSubmit = (evento, campoBusqueda) => {
 		evento.preventDefault();//previene el submit del formulario
 		evento.target.elements["campoBusqueda"].value = ""//limpia el campo de busqueda
-		console.log(gastoTotalCliente(campoBusqueda))//ejecuta la funcion gastoTotalCliente e imprime el resultado en consola
+		setTotalCliente(gastoTotalCliente(campoBusqueda))//ejecuta la funcion gastoTotalCliente e imprime el resultado en consola
 	}
 
 	return (
 		<section id="Ejercicio-4">
+			<h2>Ejercicio 4</h2>
+			<p>Escribe el ID del cliente para ver el gasto total de sus pedidos</p>
 			<form
 				onSubmit={(evento) => manejarSubmit(evento, campoBusqueda)}>
 				<input type="text" name="campoBusqueda" autoComplete="off" placeholder="ingresa el id del cliente" onChange={(event) => { setCampoBusqueda(event.target.value) }} />
 				<input type="submit" name="submit" id="" value="buscar" />
-				<div></div>
+				<TotalCliente totalCliente={totalCliente} />
 			</form>
 		</section>
 	)

@@ -57,6 +57,8 @@ export const Ejercicio3 = ({ productos, pedidos }) => {
 
 	return (
 		<section id="Ejercicio-3">
+			<h2>Ejercicio 3</h2>
+			<p>Escribe el ID del pedido para ver el total de la compra</p>
 			<form
 				onSubmit={(evento) => manejarSubmit(evento, campoBusqueda)}>
 				<input type="text" name="campoBusqueda" autoComplete="off" placeholder="ingresa el id del pedido" onChange={(event) => { setCampoBusqueda(event.target.value) }} />
